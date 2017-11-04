@@ -21,9 +21,12 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views
+
+
 urlpatterns = [    
-    url(r'^admin/', admin.site.urls),
-    url(r'^catalog/', include('catalog.urls')),    
+    url(r'^catalog/', include('catalog.urls')),        
+    url(r'^signup/$', views.signup, name='signup'),    
     url(r'^$', RedirectView.as_view(url='/catalog/', permanent=True)),
 ]
 
