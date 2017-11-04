@@ -23,6 +23,13 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Início</a></li>
           <li><a href="{% url 'houses' %}">Ver todos os imóveis</a></li>
+          <li><a href="{% url 'publish' %}">Publicar um imóvel</a></li>
+          {% if user.is_authenticated %}
+            <li>User: {{ user.get_username }}</li>
+            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+          {% else %}
+            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+          {% endif %} 
       </ul>
      {% endblock %}
       </div>

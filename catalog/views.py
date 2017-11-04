@@ -2,10 +2,10 @@ from django.shortcuts import render
 from .models import RealEstate
 from django.views import generic
 
-from .forms import PublishHouseForm
-
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
+from .forms import PublishHouseForm
 
 
 def index(request):
@@ -37,9 +37,11 @@ def publish_house(request):
 
         # Check if the form is valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-
+            # check if a valid geolocation has been found, if not, give a feedback. 
+            # Else process the data in form.cleaned_data as required             
             house.address = form.cleaned_data['address']
+            house.owner = request.user
+            house.zip_code = form.cleaned_data['zip_code']
             house.publish()
 
             # redirect to a new URL:
