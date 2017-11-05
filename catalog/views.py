@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from .forms import PublishHouseForm, SearchNearbyForm, ImageForm
+from .forms import PublishHouseForm, SearchNearbyForm
 
 from geopy.geocoders import Nominatim
 from geopy import geocoders

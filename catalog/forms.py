@@ -1,6 +1,6 @@
 from django import forms
 from .validators import validate_address
-from .models import Document, RealEstate
+from .models import RealEstate
 
 class PublishHouseForm(forms.ModelForm):
     address = forms.CharField(label='Endereço', validators=[validate_address])
