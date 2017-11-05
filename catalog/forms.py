@@ -1,9 +1,15 @@
 from django import forms
 from .validators import validate_address
-    
-class PublishHouseForm(forms.Form):
+from .models import Document, RealEstate
+
+class PublishHouseForm(forms.ModelForm):
     address = forms.CharField(label='Endereço', validators=[validate_address])
-    zip_code = forms.CharField(label='CEP')
+    zip_code = forms.CharField(label='CEP')   
+
+    class Meta:
+        model = RealEstate
+        fields = ( 'image', 'address', 'zip_code') 
+    
 
 class SearchNearbyForm(forms.Form):
     CHOICES = (('10', '10'), ('20', '20'), ('30', '30'),
