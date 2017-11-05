@@ -22,8 +22,21 @@ def index(request):
     )
 
 class HouseListView(generic.ListView):
+    latitude = -22.912194
+    longitude = -43.249910 
+    location = (latitude, longitude)
     model = RealEstate
     paginate_by = 10
+
+    distance = 50
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(HouseListView, self).get_context_data(**kwargs)
+        # Add in the publisher
+        context['distance'] = self.distance
+        context['location'] = self.location
+        return context
 
 def publish_house(request):
     
