@@ -27,7 +27,6 @@ def index(request):
 
 class HouseListView(generic.ListView):
     model = RealEstate
-    paginate_by = 10
     distance = 10000
     form = SearchNearbyForm()
 
@@ -112,6 +111,10 @@ def update_house(request, id):
 
         # Create a form instance and populate it with data from the request (binding):
         form = PublishHouseForm(request.POST, request.FILES or None, None, instance = house)
+
+        if 'delete' in request.POST:
+            house.delete()
+            return HttpResponseRedirect(reverse('houses') )
 
         # Check if the form is valid:
         if form.is_valid():
