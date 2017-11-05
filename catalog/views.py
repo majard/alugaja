@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import RealEstate
 from django.views import generic
 
@@ -69,7 +69,7 @@ class HouseListView(generic.ListView):
 
 @login_required
 def publish_house(request):
-    
+
     house = RealEstate()
 
     # If this is a POST request then process the Form data
@@ -93,4 +93,37 @@ def publish_house(request):
     else:
         form = PublishHouseForm()
 
-    return render(request, 'catalog/house_publish.html', {'form': form, 'house': house})
+    return render(request, 'catalog/publish_house.html', {'form': form, 'house': house})
+
+class HouseDetailView(generic.DetailView):
+    model = RealEstate
+    context_object_name = 'house'
+
+@login_required
+def update_house(request, id):
+
+    house = get_object_or_404(RealEstate, pk = id)
+
+    if (request.user.id != house.owner.id):
+        return HttpResponseRedirect(reverse('houses') )
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = PublishHouseForm(request.POST, request.FILES or None, None, instance = house)
+
+        # Check if the form is valid:
+        if form.is_valid():
+
+            house = form.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(house.get_absolute_url())
+
+    # If this is a GET (or any other method) create the default form and fill with
+    # the house parameters
+    else:
+        form = PublishHouseForm(request.POST or None, instance = house)
+
+    return render(request, 'update_house.html', {'form': form, 'house': house})

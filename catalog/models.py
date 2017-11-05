@@ -41,4 +41,7 @@ class RealEstate(models.Model):
         self.save()
 
     def get_absolute_url(self):
-        return reverse('houses')
+        return reverse('house-detail', args=[str(self.id)])
+
+    def get_update_url(self):
+        return reverse('update-house', args=[str(self.id)])

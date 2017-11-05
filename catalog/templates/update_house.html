@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+{% block content %}    
+
+    <img width=1080px height=720px 
+    src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}" >
+
+    <h1>Endereço: {{ house.address }}</h1>
+
+    <p><strong>Locador:</strong> <a href="">{{ house.owner }}</a></p>
+    <p><strong>Cep:</strong> {{ house.zip_code }}</p>  
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+        {{ form }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}
