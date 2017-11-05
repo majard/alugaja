@@ -19,11 +19,11 @@
     <ul>
 
       {% for house in object_list %}
-        {% house_is_within_distance house as is_within_distance %}
-        {% if is_within_distance %}
+        {% house_distance house as house_distance %}
+        {% if house_distance  < distance %}
         <li>
           <a href="{{ house.get_absolute_url }}">{{ house.address }}</a> ({{house.owner}})
-          <p>latitude: {{house.latitude}},  longitude: {{house.longitude}}</p>
+          <p>Distância: {{house_distance|floatformat:1 }} km</p>
         </li>
         {% endif %}
       {% endfor %}
