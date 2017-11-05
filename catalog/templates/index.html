@@ -2,11 +2,8 @@
 
 
 {% block content %}
-<h1>FOI PORRA</h1>
-<h2>Dynamic content</h2>
+<h1>Alugaja</h1>
 
-  <p>We have the following houses:</p>
-  <ul>
-    <li><strong>Houses:</strong> {{ num_houses }}</li>
-  </ul>
+  <p>Temos {{num_houses}} casas para alugar.</p>
+  <p> <a href="{% url 'houses' %}">Veja as casas.</a></p>
 {% endblock %}
