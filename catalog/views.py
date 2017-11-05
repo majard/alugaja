@@ -4,6 +4,8 @@ from django.views import generic
 
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from .forms import PublishHouseForm, SearchNearbyForm
 
@@ -72,7 +74,7 @@ class HouseListView(generic.ListView):
         return self.get(request, *args, **kwargs)
 
 
-
+@login_required
 def publish_house(request):
     
     house = RealEstate()
