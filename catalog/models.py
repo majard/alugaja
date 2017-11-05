@@ -26,6 +26,7 @@ class RealEstate(models.Model):
 
     def calculate_distance(self, location):
         this_location = (self.latitude, self.longitude)
+        location = (location.latitude, location.longitude)
         return vincenty(this_location, location).kilometers  
 
     def publish(self):

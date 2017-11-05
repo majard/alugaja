@@ -5,6 +5,16 @@
 {% block content %}
     <h1>Casas para alugar</h1>
 
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+        Pesquisar
+        {{ form }}
+        km de distância desse endereço 
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+
     {% if object_list %}
     <ul>
 
