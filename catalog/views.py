@@ -26,7 +26,7 @@ def index(request):
 class HouseListView(generic.ListView):
     model = RealEstate
     paginate_by = 10
-    distance = 50
+    distance = 10000
     form = SearchNearbyForm()
 
     def get_context_data(self, **kwargs):
