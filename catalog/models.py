@@ -18,23 +18,18 @@ class RealEstate(models.Model):
     def __str__(self):
         return self.address
 
-    def _calculate_lat(self):
+    def _calculate_coordinates(self):
         geolocator = Nominatim()
         location = geolocator.geocode(self.address)
-        return location.latitude
-
-    def _calculate_long(self):
-        geolocator = Nominatim()
-        location = geolocator.geocode(self.address)
-        return location.longitude
+        self.latitude = location.latitude
+        self.longitude = location.longitude
 
     def calculate_distance(self, location):
         this_location = (self.latitude, self.longitude)
         return vincenty(this_location, location).kilometers  
 
     def publish(self):
-        self.latitude = self._calculate_lat()
-        self.longitude = self._calculate_long()
+        self._calculate_coordinates()
         self.save()
 
     def get_absolute_url(self):

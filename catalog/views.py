@@ -33,7 +33,7 @@ class HouseListView(generic.ListView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super(HouseListView, self).get_context_data(**kwargs)
-        # Add in the publisher
+        # Add in more context
         context['distance'] = self.distance
         context['location'] = self.location
         return context
