@@ -18,16 +18,25 @@
       {% for house in object_list %}
         {% house_distance house as house_distance %}
         {% if house_distance  < distance %}
-        <tr>
-          <td class="list">
-            <img width=150px height=150px 
-            src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}" >
-              
-            <a href="{{ house.get_absolute_url }}">{{ house }}</a> 
-            <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
-            Distância: {{house_distance|floatformat:1 }} km
-          </td>
-        </tr>
+          {% if forloop.counter0|divisibleby:2 %}
+          <tr>
+          {% endif %}
+            <td class="list">
+              <div class='post-list-element'> 
+                <img width=150px height=150px 
+                src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}" >
+              </div>  
+              <div class='post-list-element'>
+                <a href="{{ house.get_absolute_url }}">{{ house }}</a> 
+                <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
+                
+                <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
+              </div>
+            </td>
+
+          {% if forloop.counter|divisibleby:2 %}
+            <tr>
+          {% endif %}
         {% endif %}
       {% endfor %}
 
