@@ -1,6 +1,8 @@
 from django import forms
 from .validators import validate_address
-from .models import RealEstate
+from .models import RealEstate, Profile
+
+from django.contrib.auth.models import User
 
 class PublishHouseForm(forms.ModelForm):
     address = forms.CharField(label='Endereço', validators=[validate_address])
@@ -17,3 +19,13 @@ class SearchNearbyForm(forms.Form):
 
     address = forms.CharField(label='Endereço', validators=[validate_address])
     distance = forms.TypedChoiceField(label='Distância', choices=CHOICES, coerce=int)
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('contact',)

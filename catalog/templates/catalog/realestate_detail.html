@@ -6,10 +6,12 @@
   
   <h1>Endereço: {{ house.address }}</h1>
 
-  <p><strong>Locador:</strong> <a href="">{{ house.owner }}</a></p> <!-- author detail link not yet defined -->
+  <p><strong>Locador:</strong> <a href="">{{ house.owner }}</a></p> 
+  <p><strong>Contato:</strong> <a href="">{{ house.owner.profile.contact }}</a></p> 
+
   <p><strong>Cep:</strong> {{ house.zip_code }}</p>  
+
   {% if user.id == house.owner.id %}
-  
   <a href="{{ house.get_update_url }}"> Edite os dados aqui. </a>
   {% endif %}
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<h1>{{user_profile.user.get_full_name}}</h1>
+
+<h3>({{user_profile.user}})</h3>
+
+<br />
+
+<p> Contato: {{user_profile.contact}} </p>
+<p> Email: {{user_profile.user.email}} </p>
+      
+{% endblock %}
