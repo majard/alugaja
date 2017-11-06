@@ -2,7 +2,11 @@ from django import forms
 from .validators import validate_address
 from .models import RealEstate, Profile
 
+from django.db import models
+
 from django.contrib.auth.models import User
+
+from django.contrib.auth.forms import UserCreationForm
 
 class PublishHouseForm(forms.ModelForm):
     address = forms.CharField(label='Endereço', validators=[validate_address])
@@ -29,3 +33,10 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('contact',)
+
+class SignUpForm(UserCreationForm):
+    contact = models.TextField(max_length=100, blank=True)
+
+    class Meta:
+        model = User
+        fields = ('username',  'password1', 'password2', )
