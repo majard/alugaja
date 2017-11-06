@@ -11,7 +11,7 @@
 
 body{
     padding-bottom: 50px;
-    background-color: rgb(32, 28, 28);
+    background-color: rgb(30, 26, 26);
     color: gray;
 }
 
@@ -22,4 +22,21 @@ body{
 
 #distance{
     padding-top: 8px;
+}
+
+#id_address{
+    width:64%;
+    height: 32px;
+    display: inline-block;  
+    margin-right: 28px;  
+}
+
+.search_form{
+    font-size: 18px;
+    margin-bottom: 32px;
+    margin-top: 32px;
+}
+
+.title{
+    font-size: 48px;
 }
