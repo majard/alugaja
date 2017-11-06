@@ -9,6 +9,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.utils.safestring import mark_safe
+
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.owner.id, filename)
@@ -47,6 +49,9 @@ class RealEstate(models.Model):
 
     def get_update_url(self):
         return reverse('update-house', args=[str(self.id)])
+
+    def image_tag(self):
+        return mark_safe('<img src="/media/%s" width="150" height="150" />' % (self.image))
 
 
 class Profile(models.Model):
