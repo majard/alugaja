@@ -4,6 +4,13 @@
     list-style: none;
 }
 
+.list{
+    padding: 20px;
+
+}
+
 body{
     padding-bottom: 50px;
+    background-color: rgb(32, 4, 4);
+    color: gray;
 }

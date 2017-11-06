@@ -8,29 +8,30 @@
     <form action="" method="post">
         {% csrf_token %}
         <table>
-        {{ form }}
+        {{ form.as_p }}
         </table>
-        <input type="submit" value="Pesquisar" />
+        <input type="submit" value="Pesquisar" class="btn btn-default"/>
     </form>
 
     {% if object_list %}
-    <ul>
-
+    <table>
       {% for house in object_list %}
         {% house_distance house as house_distance %}
         {% if house_distance  < distance %}
-        <li>
+        <tr>
+          <td class="list">
             <img width=150px height=150px 
             src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}" >
-            
-          <a href="{{ house.get_absolute_url }}">{{ house }}</a> 
-          <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
-          <p>Distância: {{house_distance|floatformat:1 }} km</p>
-        </li>
+              
+            <a href="{{ house.get_absolute_url }}">{{ house }}</a> 
+            <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
+            Distância: {{house_distance|floatformat:1 }} km
+          </td>
+        </tr>
         {% endif %}
       {% endfor %}
 
-    </ul>
+    </table>
     {% else %}
       <p>Não existem casas cadastradas.</p>
     {% endif %}       

@@ -17,7 +17,7 @@ class SearchNearbyForm(forms.Form):
     CHOICES = (('5', '5 km'), ('10', '10 km'), ('20', '20 km'), ('30', '30 km'),
                ('40', '40 km'), ('50', '50 km'), ('100', '100 km'))
 
-    address = forms.CharField(label='Endereço', validators=[validate_address])
+    address = forms.CharField(label='Endereço', validators=[validate_address], )
     distance = forms.TypedChoiceField(label='Distância', choices=CHOICES, coerce=int)
 
 class UserForm(forms.ModelForm):
