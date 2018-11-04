@@ -2,7 +2,7 @@ from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
 from geopy.geocoders import Nominatim
-from geopy.distance import vincenty
+from django.contrib.gis.db.models.functions import Distance
 from geopy import geocoders
 
 from django.contrib.auth.models import User
@@ -30,12 +30,13 @@ class RealEstate(models.Model):
     def _calculate_coordinates(self):
         geolocator = Nominatim()
         location = geolocator.geocode(self.address)
-        self.location = Point(location.latitude, location.longitude)
+        self.location = Point(location.longitude, location.latitude)
 
     def calculate_distance(self, location):
         this_location = self.location
-        location = (location.latitude, location.longitude)
-        return vincenty(this_location, location).kilometers  
+        loc = Point(location.longitude, location.latitude, srid=4326)
+        dist = this_location.distance(loc) * 100
+        return dist
 
     def publish(self):
         self._calculate_coordinates()

@@ -15,6 +15,8 @@ from .forms import PublishHouseForm, SearchNearbyForm, UserForm, ProfileForm
 
 from geopy.geocoders import Nominatim
 from geopy import geocoders
+from django.contrib.gis.geos import GEOSGeometry, Point
+from django.contrib.gis.measure import D  # D for distance
 
 from alugaja.settings import DEFAULT_ADDRESS, DISTANCE, LATITUDE, LONGITUDE
 
@@ -29,44 +31,38 @@ def index(request):
         context = {'num_houses':num_houses},
     )
 
-class HouseListView(generic.ListView):
+def view_houses(request):
     distance = DISTANCE
     model = RealEstate
     form = SearchNearbyForm()
+    
+    geolocator = Nominatim()
+    location = geolocator.geocode(DEFAULT_ADDRESS)
+    
+    
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
 
-    def get_context_data(self, **kwargs):
+        # Create a form instance and populate it with data from the request (binding):
+        form = SearchNearbyForm(request.POST)
 
-        geolocator = Nominatim()
-        location = geolocator.geocode(DEFAULT_ADDRESS)
+        # Check if the form is valid:
+        # Also check if a valid geolocation has been found, if not, give a feedback. 
+        if form.is_valid():
+            # Else process the data in form.cleaned_data as required             
+            distance = form.cleaned_data['distance']
+            location = geolocator.geocode(form.cleaned_data['address'])
 
-        # If this is a POST request then process the Form data
-        if self.request.method == 'POST':
-
-            # Create a form instance and populate it with data from the request (binding):
-            self.form = SearchNearbyForm(self.request.POST)
-
-            # Check if the form is valid:
-            # Also check if a valid geolocation has been found, if not, give a feedback. 
-            if self.form.is_valid():
-                # Else process the data in form.cleaned_data as required             
-                self.distance = self.form.cleaned_data['distance']
-                geolocator = Nominatim()
-                location = geolocator.geocode(self.form.cleaned_data['address'])
-
-        # If this is a GET (or any other method) create the default form.
-        else:
-            self.form = SearchNearbyForm()            
-         
-        # Call the base implementation first to get a context
-        context = super(HouseListView, self).get_context_data(**kwargs)
-        # Add in more context
-        context['distance'] = self.distance
-        context['location'] = location
-        context['form'] = self.form
-        return context
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = SearchNearbyForm()            
+    
+    queryset = RealEstate.objects.filter(location__distance_lte=(
+        Point(location.longitude, location.latitude), 
+        D(km=distance)))
+        
+    return render(request, 'catalog/realestate_list.html', {'form': form, 'queryset': queryset, 'location': location})
  
-    def post(self, request, *args, **kwargs):        
-        return self.get(request, *args, **kwargs)
 
 
 @login_required
