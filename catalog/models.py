@@ -18,9 +18,9 @@ def user_directory_path(instance, filename):
 class RealEstate(models.Model):
     owner = models.ForeignKey('auth.User')
     address = models.TextField(help_text="Coloque o endereço do imóvel aqui.")
-    zip_code = models.TextField(help_text="Cep vem aqui.", default = "00000-000")
-    latitude = models.FloatField(default = -22.912194)
-    longitude = models.FloatField(default = -43.249910)
+    zip_code = models.TextField(help_text="Cep vem aqui.")
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
     image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
 

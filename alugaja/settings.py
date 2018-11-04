@@ -78,10 +78,11 @@ WSGI_APPLICATION = 'alugaja.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'alugaja',
-        'USER': 'django',
-        'PASSWORD': 'nRAl@t21VHaVfXPn(W5F',
+        'USER': 'marlon',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
