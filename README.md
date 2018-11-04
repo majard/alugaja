@@ -7,4 +7,5 @@ Django version: 1.11
 Dependencies in the stable-req.txt file
 
 To install them run the command:
+
     pip install -r stable-req.txt
