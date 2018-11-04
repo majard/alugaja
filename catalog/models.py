@@ -1,4 +1,5 @@
-from django.db import models
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
 from geopy.geocoders import Nominatim
 from geopy.distance import vincenty
@@ -19,8 +20,7 @@ class RealEstate(models.Model):
     owner = models.ForeignKey('auth.User')
     address = models.TextField(help_text="Coloque o endereço do imóvel aqui.")
     zip_code = models.TextField(help_text="Cep vem aqui.")
-    latitude = models.FloatField()
-    longitude = models.FloatField()
+    location = models.PointField(geography = True)
 
     image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
 
@@ -29,14 +29,11 @@ class RealEstate(models.Model):
 
     def _calculate_coordinates(self):
         geolocator = Nominatim()
-        print("inside calculate coordinates")
-        print(self.address)
         location = geolocator.geocode(self.address)
-        self.latitude = location.latitude
-        self.longitude = location.longitude
+        self.location = Point(location.latitude, location.longitude)
 
     def calculate_distance(self, location):
-        this_location = (self.latitude, self.longitude)
+        this_location = self.location
         location = (location.latitude, location.longitude)
         return vincenty(this_location, location).kilometers  
 

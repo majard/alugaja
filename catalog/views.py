@@ -16,10 +16,10 @@ from .forms import PublishHouseForm, SearchNearbyForm, UserForm, ProfileForm
 from geopy.geocoders import Nominatim
 from geopy import geocoders
 
+from alugaja.settings import DEFAULT_ADDRESS, DISTANCE, LATITUDE, LONGITUDE
+
 def index(request):
-    latitude = -22.912194
-    longitude = -43.249910 
-    location = (latitude, longitude)
+    location = (LATITUDE, LONGITUDE)
     num_houses = RealEstate.objects.all().count()
     
 
@@ -30,15 +30,14 @@ def index(request):
     )
 
 class HouseListView(generic.ListView):
+    distance = DISTANCE
     model = RealEstate
-    distance = 10000
     form = SearchNearbyForm()
 
     def get_context_data(self, **kwargs):
 
         geolocator = Nominatim()
-        default_address = "Rua Conselheiro Otaviano"
-        location = geolocator.geocode(default_address)
+        location = geolocator.geocode(DEFAULT_ADDRESS)
 
         # If this is a POST request then process the Form data
         if self.request.method == 'POST':
