@@ -18,11 +18,10 @@
   </div>
 </form>
 
-{% if object_list %}
+{% if queryset %}
 <table>
-  {% for house in object_list %} 
+  {% for house in queryset %} 
   {% distance_to house as house_distance %} 
-  {% if house_distance < distance %} 
   {% if forloop.counter0|divisibleby:2 %} 
     <tr>
   {% endif %}
@@ -41,7 +40,6 @@
 
   {% if forloop.counter|divisibleby:2 %}
   <tr>
-  {% endif %} 
   {% endif %} 
   {% endfor %}
 

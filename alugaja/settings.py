@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
+    'django.contrib.gis' # postgis functionality
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -78,10 +79,11 @@ WSGI_APPLICATION = 'alugaja.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'alugaja',
-        'USER': 'django',
-        'PASSWORD': 'nRAl@t21VHaVfXPn(W5F',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'Alugaja',
+        'USER': 'postgres',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
@@ -133,3 +135,9 @@ LOGIN_REDIRECT_URL = '/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# CONSTANTS
+DEFAULT_ADDRESS = "Rua Conselheiro Otaviano"
+DISTANCE = 5
+LATITUDE = -22.912194
+LONGITUDE = -43.249910 

@@ -1,7 +1,8 @@
-from django.db import models
+from django.contrib.gis.db import models
+from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
 from geopy.geocoders import Nominatim
-from geopy.distance import vincenty
+from django.contrib.gis.db.models.functions import Distance
 from geopy import geocoders
 
 from django.contrib.auth.models import User
@@ -18,9 +19,8 @@ def user_directory_path(instance, filename):
 class RealEstate(models.Model):
     owner = models.ForeignKey('auth.User')
     address = models.TextField(help_text="Coloque o endereço do imóvel aqui.")
-    zip_code = models.TextField(help_text="Cep vem aqui.", default = "00000-000")
-    latitude = models.FloatField(default = -22.912194)
-    longitude = models.FloatField(default = -43.249910)
+    zip_code = models.TextField(help_text="Cep vem aqui.")
+    location = models.PointField(geography = True)
 
     image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
 
@@ -29,16 +29,14 @@ class RealEstate(models.Model):
 
     def _calculate_coordinates(self):
         geolocator = Nominatim()
-        print("inside calculate coordinates")
-        print(self.address)
         location = geolocator.geocode(self.address)
-        self.latitude = location.latitude
-        self.longitude = location.longitude
+        self.location = Point(location.longitude, location.latitude)
 
     def calculate_distance(self, location):
-        this_location = (self.latitude, self.longitude)
-        location = (location.latitude, location.longitude)
-        return vincenty(this_location, location).kilometers  
+        this_location = self.location
+        loc = Point(location.longitude, location.latitude, srid=4326)
+        dist = this_location.distance(loc) * 100
+        return dist
 
     def publish(self):
         self._calculate_coordinates()
