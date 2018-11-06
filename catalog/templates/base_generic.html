@@ -11,6 +11,7 @@
   
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="{% static 'js/code.js' %}"></script>
 </head>
 
 <body>
@@ -29,7 +30,7 @@
               <li><a href="{% url 'houses' %}">Ver todos os imóveis</a></li>
               <li><a href="{% url 'publish' %}">Publicar um imóvel</a></li>
               {% if user.is_authenticated %}
-                <li><a href="{{ user.profile.get_update_url }}">User: {{ user.get_username }} </a></li>
+                <li><a href="{{ user.profile.get_update_url }}">Usuário: {{ user.get_username }} </a></li>
                 
                 <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
               {% else %}

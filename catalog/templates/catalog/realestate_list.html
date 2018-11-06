@@ -7,13 +7,18 @@
 <form action="" method="post">
   {% csrf_token %}
   <div class="container">
-    <div class="row search_form">
-      <div class="col-sm-10">
-        {% for field in form %}
-          <b>{{ field.label_tag }}</b> {{ field }}
-        {% endfor %}
+    <div class="row search-form">
+      <div class="col-md-12">
+        <b>{{ form.address.label_tag }}</b> {{ form.address }}
+        
+        <button type="submit" class="btn btn-default search-button" />
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
       </div>
-      <input type="submit" value="Pesquisar" class="btn btn-default col-sm-2" />
+      <input type="button" value="Filtrar" id="filter-button" class="btn btn-default" />
+      <div class="filter">
+          <b>{{ form.distance.label_tag }}</b> {{ form.distance }}
+      </div>
     </div>
   </div>
 </form>
@@ -22,30 +27,22 @@
 <table>
   {% for house in queryset %} 
   {% distance_to house as house_distance %} 
-  {% if forloop.counter0|divisibleby:2 %} 
-    <tr>
-  {% endif %}
 
-    <td class="list">
-      <div class='post-list-element'>
-        <img width=150px height=150px src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}">
-      </div>
-      <div class='post-list-element'>
-        <a href="{{ house.get_absolute_url }}">{{ house }}</a>
-        <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
+    <div class="house-container">
+      <a href="{{ house.get_absolute_url }}">
+        <img class="house-image" src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}">
+        <div class="address-block">{{ house }}</div>
+      </a>
+      <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
 
-        <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
-      </div>
-    </td>
+      <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
+    </div>
 
-  {% if forloop.counter|divisibleby:2 %}
-  <tr>
-  {% endif %} 
   {% endfor %}
 
 </table>
 
   {% else %}  
-    <p>Não existem casas cadastradas.</p>
+    <p>Não existem casas cadastradas com essas características.</p>
   {% endif %} 
 {% endblock %}

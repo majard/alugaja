@@ -7,6 +7,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import UserCreationForm
+from alugaja.settings import DISTANCE
 
 class PublishHouseForm(forms.ModelForm):
     address = forms.CharField(label='Endereço', validators=[validate_address])
@@ -22,7 +23,7 @@ class SearchNearbyForm(forms.Form):
                ('40', '40 km'), ('50', '50 km'), ('100', '100 km'))
 
     address = forms.CharField(label='Endereço', validators=[validate_address], )
-    distance = forms.TypedChoiceField(label='Distância', choices=CHOICES, coerce=int)
+    distance = forms.TypedChoiceField(label='Distância', choices=CHOICES, coerce=int, initial=DISTANCE)
 
 class UserForm(forms.ModelForm):
     class Meta:
