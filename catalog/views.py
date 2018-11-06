@@ -33,11 +33,14 @@ def index(request):
 
 def view_houses(request):
     distance = DISTANCE
-    model = RealEstate
     form = SearchNearbyForm()
+    queryset = RealEstate.objects.all()
     
     geolocator = Nominatim()
     location = geolocator.geocode(DEFAULT_ADDRESS)
+    number_of_bedrooms = 0
+    area = 0
+    rent_price = 0
     
     
     # If this is a POST request then process the Form data
@@ -52,14 +55,26 @@ def view_houses(request):
             # Else process the data in form.cleaned_data as required             
             distance = form.cleaned_data['distance']
             location = geolocator.geocode(form.cleaned_data['address'])
-
-    # If this is a GET (or any other method) create the default form.
-    else:
-        form = SearchNearbyForm()            
+            
+            number_of_bedrooms = form.cleaned_data['number_of_bedrooms']            
+            area = form.cleaned_data['area']
+            rent_price = form.cleaned_data['rent_price']     
     
-    queryset = RealEstate.objects.filter(location__distance_lte=(
-        Point(location.longitude, location.latitude), 
-        D(km=distance)))
+            queryset = queryset.filter(location__distance_lte=(
+                Point(location.longitude, location.latitude), 
+                D(km=distance)))
+
+            if 'number_of_bedrooms' in form.changed_data:
+                queryset = queryset.filter(number_of_bedrooms__gte=number_of_bedrooms)
+                print("bed")
+
+            if 'area' in form.changed_data:
+                queryset = queryset.filter(area__gte=area)        
+                print("area")
+
+            if 'rent_price' in form.changed_data:
+                queryset = queryset.filter(rent_price__lte=rent_price)        
+                print("rent_price")
         
     return render(request, 'catalog/realestate_list.html', {'form': form, 'queryset': queryset, 'location': location})
  

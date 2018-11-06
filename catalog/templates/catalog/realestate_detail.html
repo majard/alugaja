@@ -10,6 +10,10 @@
   <p><strong>Contato:</strong>{{ house.owner.profile.contact }}</p> 
 
   <p><strong>Cep:</strong> {{ house.zip_code }}</p>  
+  
+  <p> <b>Aluguel:</b> {{house.rent_price}}</p>
+  <p> <b>Area:</b> {{house.area}}</p>
+  <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
 
   {% if user.id == house.owner.id %}
   <a href="{{ house.get_update_url }}"> Edite os dados aqui. </a>

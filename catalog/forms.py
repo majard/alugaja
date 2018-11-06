@@ -1,5 +1,6 @@
 from django import forms
 from .validators import validate_address
+from django.core.validators import MinValueValidator
 from .models import RealEstate, Profile
 
 from django.db import models
@@ -22,8 +23,12 @@ class SearchNearbyForm(forms.Form):
     CHOICES = (('5', '5 km'), ('10', '10 km'), ('20', '20 km'), ('30', '30 km'),
                ('40', '40 km'), ('50', '50 km'), ('100', '100 km'))
 
-    address = forms.CharField(label='Endereço', validators=[validate_address], )
+    address = forms.CharField(label='Endereço', validators=[validate_address])
     distance = forms.TypedChoiceField(label='Distância', choices=CHOICES, coerce=int, initial=DISTANCE)
+    
+    rent_price = forms.DecimalField(label='Preço Máximo', decimal_places=2, max_digits=10, initial=0,validators = [MinValueValidator(0.0)])
+    number_of_bedrooms = forms.IntegerField(label='Mínimo de quartos', initial=0, validators = [MinValueValidator(0)])
+    area = forms.IntegerField(label='Área Mínima', initial=0, validators = [MinValueValidator(0)])
 
 class UserForm(forms.ModelForm):
     class Meta:
