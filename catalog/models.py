@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 from django.contrib.gis.geos import Point
 from django.core.urlresolvers import reverse
+from django.core.validators import MinValueValidator
 from geopy.geocoders import Nominatim
 from django.contrib.gis.db.models.functions import Distance
 from geopy import geocoders
@@ -21,6 +22,9 @@ class RealEstate(models.Model):
     address = models.TextField(help_text="Coloque o endereço do imóvel aqui.")
     zip_code = models.TextField(help_text="Cep vem aqui.")
     location = models.PointField(geography = True)
+    rent_price = models.DecimalField(decimal_places=2, max_digits=10, default=0,validators = [MinValueValidator(0.0)])
+    number_of_bedrooms = models.IntegerField(default=0, validators = [MinValueValidator(0)])
+    area = models.PositiveIntegerField(default=0)
 
     image = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
 

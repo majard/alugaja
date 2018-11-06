@@ -15,7 +15,7 @@ class PublishHouseForm(forms.ModelForm):
 
     class Meta:
         model = RealEstate
-        fields = ( 'image', 'address', 'zip_code') 
+        fields = ( 'image', 'address', 'zip_code', 'rent_price', 'number_of_bedrooms', 'area') 
     
 
 class SearchNearbyForm(forms.Form):
