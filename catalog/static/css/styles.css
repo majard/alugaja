@@ -24,6 +24,7 @@ body{
 
 #distance{
     padding-top: 8px;
+    font-size: 12px;
 }
 
 .address-wrapper {
@@ -73,6 +74,8 @@ body{
 
 .address-block{
     display: block;
+    height: 3em;
+    margin: 10px;
 }
 
 .house-image{
@@ -96,6 +99,20 @@ body{
     height: 100%;
     display: inline-block;
     overflow-y: scroll;
+}
+
+.more-info{
+    text-align: justify;
+    margin: 10px;
+}
+
+.more-info p{
+    display: inline-block;
+    margin: 10px;
+}
+
+.rent-price{
+    width: 100%;
 }
 
 #map {
