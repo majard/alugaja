@@ -45,7 +45,6 @@
 {% if queryset %}
     <div id="houses">
     {% for house in queryset %} 
-    {% distance_to house as house_distance %} 
       {{house.location.latitude}}
       {{house.location.longitude}}
       <div class="house-container">
@@ -58,7 +57,7 @@
         <p> <b>Area:</b> {{house.area}}</p>
         <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
 
-        <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
+        <p id='distance'> Distância: {{house.distance.km|humanize }} km </p>
       </div>
     {% endfor %}
     </div>

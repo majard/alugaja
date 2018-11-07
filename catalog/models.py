@@ -36,12 +36,6 @@ class RealEstate(models.Model):
         location = geolocator.geocode(self.address)
         self.location = Point(location.longitude, location.latitude)
 
-    def calculate_distance(self, location):
-        this_location = self.location
-        loc = Point(location.longitude, location.latitude, srid=4326)
-        dist = this_location.distance(loc) * 100
-        return dist
-
     def publish(self):
         self._calculate_coordinates()
         self.save()
