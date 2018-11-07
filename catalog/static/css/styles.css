@@ -16,6 +16,11 @@
     margin: 1%;
 }
 
+.more-info{
+    text-align: justify;
+    margin: 10px;
+}
+
 body{
     padding-bottom: 50px;
     background-color: rgb(7, 7, 7);
@@ -24,6 +29,7 @@ body{
 
 #distance{
     padding-top: 8px;
+    font-size: 12px;
 }
 
 .address-wrapper {
@@ -73,6 +79,8 @@ body{
 
 .address-block{
     display: block;
+    height: 2em;
+    margin: 0.5em 0.1em;
 }
 
 .house-image{
@@ -139,6 +147,14 @@ body{
     
     #id_address{
         width:70%;
+    }
+    
+    #map {
+        width: 45%;
+    }
+
+    #houses {
+        width: 45%;
     }
 }
 
