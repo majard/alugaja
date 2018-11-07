@@ -143,5 +143,8 @@ DISTANCE = 100
 LATITUDE = -22.912194
 LONGITUDE = -43.249910 
 
+GDAL_LIBRARY_PATH = os.getenv('GDAL_LIBRARY_PATH')
+GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
