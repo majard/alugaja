@@ -14,3 +14,7 @@ To install them run the command:
 Also need to install the libraries and postgis for geodjango:
 
 https://docs.djangoproject.com/en/2.1/ref/contrib/gis/install/
+
+Temporary deployment at:
+
+https://alugaja.herokuapp.com
