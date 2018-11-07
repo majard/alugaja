@@ -3,6 +3,13 @@
     padding: 0;
 }
 
+.navbar-toggler-btn{
+    display: none;
+    float: left;
+    margin:10px;
+    background-color:  rgb(7, 7, 7);
+}
+
 .house-container{
     display: inline-block;    
     background-color: rgb(50, 50, 50);
@@ -19,9 +26,45 @@ body{
     padding-top: 8px;
 }
 
+.address-wrapper {
+    width: 70%;
+    display: inline-block;
+}
+
 #id_address{
     height: 32px;
-    display: inline-block;  
+    display: inline-block;      
+    padding-right: 32px;
+    border-radius: 4px;
+    border: none;
+}
+
+.search-button{
+    display: inline-block;
+    height: 32px;
+    margin-top: -3px;
+    margin-left: -32px;
+    border: none;
+}
+
+.filter{
+    display: none;    
+    font-size: 12px;
+    background-color: rgb(50, 50, 50);
+    position: absolute;
+    right: 8px;
+    top: 150px;
+    width: 30%;
+    z-index:1;
+}
+
+.filter div {
+    display: inline-block;
+}
+
+#filter-button {
+    margin: 1%;
+    display: inline-block;
 }
 
 .title{
@@ -38,27 +81,6 @@ body{
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
-
-.filter{
-    display: none;    
-    background-color: rgb(50, 50, 50);
-    position: relative;
-    z-index:1;
-}
-
-.filter div {
-    display: inline-block;
-}
-.search-button{
-    display: inline-block;
-    height: 32px;
-    margin-top: -2px;
-}
-
-#filter-button {
-    margin: 1%;
-    display: block;
 }
 
 #results {
@@ -110,7 +132,7 @@ body{
     }
     
     #id_address{
-        width:64%;
+        width:70%;
     }
 }
 
@@ -124,7 +146,36 @@ body{
     }
     
     #id_address{
-        width:72%;
+        width:78%;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .navbar-nav.list{
+        position: absolute;
+        margin: 42px;
+        z-index: 2;
+        display: none;
+        background-color: rgb(7, 7, 7);
+    }
+
+    .navbar {
+        text-align: center;
+    }
+
+    .navbar-header{
+        float: right;
+        margin-right: 32px;
+    }
+
+    .navbar-toggler-btn{
+        display: block;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .navbar-nav.list{
+        display: block;
     }
 }
 
@@ -138,6 +189,6 @@ body{
     }
     
     #id_address{
-        width:78%;
+        width:88%;
     }
 }
