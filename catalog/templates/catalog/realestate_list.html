@@ -6,34 +6,36 @@
 
 <form action="" method="post">
   {% csrf_token %}
-  <div class="container">
-    <div class="row search-form">
-      <div class="col-md-12">
-        <b>{{ form.address.label_tag }}</b> {{ form.address }}
-        {{form.address.errors}}
-        
-        <button type="submit" class="btn btn-default search-button" />
-          <span class="glyphicon glyphicon-search"></span>
-        </button>
+  <div class="search-form">
+    <div class="address-wrapper">
+      <b>{{ form.address.label_tag }}</b> {{ form.address }}
+      {{form.address.errors}}
+      
+      <button type="submit" class="btn btn-default search-button" />
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </div>
+    <input type="button" value="Filtrar" id="filter-button" class="btn btn-default" />
+    <div class="filter">
+      <div>
+        <b>{{ form.distance.label_tag }}</b> {{ form.distance }}
+        {{form.distance.errors}}
       </div>
-      <input type="button" value="Filtrar" id="filter-button" class="btn btn-default" />
-      <div class="filter">
-        <div>
-          <b>{{ form.distance.label_tag }}</b> {{ form.distance }}
-          {{form.distance.errors}}
-        </div>
-        <div>
-            <b>{{ form.number_of_bedrooms.label_tag }}</b> {{ form.number_of_bedrooms }}
-          {{form.number_of_bedrooms.errors}}
-        </div>
-        <div>
-            <b>{{ form.area.label_tag }}</b> {{ form.area }}
-          {{form.area.errors}}
-        </div>
-        <div>
-            <b>{{ form.rent_price.label_tag }}</b> {{ form.rent_price }}
-          {{form.rent_price.errors}}
-        </div>
+      <div>
+          <b>{{ form.number_of_bedrooms.label_tag }}</b> {{ form.number_of_bedrooms }}
+        {{form.number_of_bedrooms.errors}}
+      </div>
+      <div>
+          <b>{{ form.area.label_tag }}</b> {{ form.area }}
+        {{form.area.errors}}
+      </div>
+      <div>
+          <b>{{ form.rent_price.label_tag }}</b> {{ form.rent_price }}
+        {{form.rent_price.errors}}
+      </div>
+      <div>
+          <b>{{ form.order_by.label_tag }}</b> {{ form.order_by }}
+        {{form.order_by.errors}}
       </div>
     </div>
   </div>
