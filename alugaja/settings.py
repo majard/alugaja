@@ -141,3 +141,8 @@ DEFAULT_ADDRESS = "Rua Conselheiro Otaviano"
 DISTANCE = 100
 LATITUDE = -22.912194
 LONGITUDE = -43.249910 
+
+from os import environ
+
+GEOS_LIBRARY_PATH = environ.get('GEOS_LIBRARY_PATH')
+GDAL_LIBRARY_PATH = environ.get('GDAL_LIBRARY_PATH')
