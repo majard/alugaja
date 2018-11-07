@@ -79,7 +79,7 @@ body{
 
 .address-block{
     display: block;
-    height: 2em;
+    height: 3em;
     margin: 0.5em 0.1em;
 }
 
@@ -104,6 +104,20 @@ body{
     height: 100%;
     display: inline-block;
     overflow-y: scroll;
+}
+
+.more-info{
+    text-align: justify;
+    margin: 10px;
+}
+
+.more-info p{
+    display: inline-block;
+    margin: 10px;
+}
+
+.rent-price{
+    width: 100%;
 }
 
 #map {

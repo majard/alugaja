@@ -45,21 +45,20 @@
 {% if queryset %}
     <div id="houses">
     {% for house in queryset %} 
-    {% distance_to house as house_distance %} 
-      {{house.location.latitude}}
-      {{house.location.longitude}}
       <div class="house-container">
         <a href="{{ house.get_absolute_url }}">
           <img class="house-image" src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}">
           <div class="address-block">{{ house }}</div>
         </a>
         <div class="more-info">
-          <p> <b>Aluguel:</b> {{house.rent_price}}</p>
+          <p class="rent-price"> <b>Aluguel:</b> {{house.rent_price}}</p>
           <p> <b>Area:</b> {{house.area}}</p>
           <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
         </div>
-
-        <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
+        
+        <p id='distance'> 
+            Distância: {{house.distance.km|humanize }} km 
+        </p>
       </div>
     {% endfor %}
     </div>

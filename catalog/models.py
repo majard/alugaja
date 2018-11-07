@@ -17,6 +17,7 @@ def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.owner.id, filename)
 
+
 class RealEstate(models.Model):
     owner = models.ForeignKey('auth.User')
     address = models.TextField(help_text="Coloque o endereço do imóvel aqui.")
@@ -35,12 +36,6 @@ class RealEstate(models.Model):
         geolocator = Nominatim()
         location = geolocator.geocode(self.address)
         self.location = Point(location.longitude, location.latitude)
-
-    def calculate_distance(self, location):
-        this_location = self.location
-        loc = Point(location.longitude, location.latitude, srid=4326)
-        dist = this_location.distance(loc) * 100
-        return dist
 
     def publish(self):
         self._calculate_coordinates()
