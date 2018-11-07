@@ -17,6 +17,7 @@ def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'user_{0}/{1}'.format(instance.owner.id, filename)
 
+
 class RealEstate(models.Model):
     owner = models.ForeignKey('auth.User')
     address = models.TextField(help_text="Coloque o endereço do imóvel aqui.")

@@ -55,8 +55,10 @@
           <p> <b>Area:</b> {{house.area}}</p>
           <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
         </div>
-
-        <p id='distance'> Distância: {{house.distance.km|humanize }} km </p>
+        
+        <p id='distance'> 
+            Distância: {{house.distance.km|humanize }} km 
+        </p>
       </div>
     {% endfor %}
     </div>

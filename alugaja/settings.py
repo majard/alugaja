@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
-    'django.contrib.gis' # postgis functionality
+    'django.contrib.gis', # postgis functionality
+    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -141,3 +142,17 @@ DEFAULT_ADDRESS = "Rua Conselheiro Otaviano"
 DISTANCE = 100
 LATITUDE = -22.912194
 LONGITUDE = -43.249910 
+AWS_S3_REGION_NAME  = "sa-east-1"
+AWS_ACCESS_KEY_ID = "AKIAIW2FTQWOWEVC2RZA"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = 'alugaja'
+# Tell django-storages the domain to use to refer to static files.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# Tell the staticfiles app to use S3Boto3 storage when writing the collected static files (when
+# you run `collectstatic`).
+
+STATICFILES_LOCATION = 'static'
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'

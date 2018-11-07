@@ -5,6 +5,7 @@ register = template.Library()
         
 @register.filter()
 def humanize(distance):
-    dist = "{0:.2f}".format(distance)
-    return dist
+    if isinstance(distance, float):
+        distance = "{0:.2f}".format(distance)
+    return distance
         
