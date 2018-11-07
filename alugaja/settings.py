@@ -49,7 +49,8 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',    
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'alugaja.urls'
@@ -144,8 +145,6 @@ LONGITUDE = -43.249910
 
 GEOS_LIBRARY_PATH = '/app/.geodjango/geos/lib/libgeos_c.so'
 GDAL_LIBRARY_PATH = '/app/.geodjango/gdal/lib/libgdal.so'
-
-WSGI_APPLICATION = 'ProjectName.wsgi.application'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
