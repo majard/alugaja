@@ -104,6 +104,12 @@ body{
     display: inline-block;
 }
 
+#house-detail-map {    
+    width: 30%;
+    height: 100%;
+    display: inline-block;
+}
+
 .detail-image {
     width: 80%;
     margin: 0 auto;
@@ -170,6 +176,18 @@ body{
 
     .navbar-toggler-btn{
         display: block;
+    }
+    
+    #house-detail-map {    
+        width: 80%;
+        height: 40vh;
+        display: block;
+    }
+    
+    #house-details {
+        width: 80%;
+        height: 30vh;
+        display: inline-block;
     }
 }
 
