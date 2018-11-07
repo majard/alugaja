@@ -22,13 +22,20 @@ class PublishHouseForm(forms.ModelForm):
 class SearchNearbyForm(forms.Form):
     CHOICES = (('5', '5 km'), ('10', '10 km'), ('20', '20 km'), ('30', '30 km'),
                ('40', '40 km'), ('50', '50 km'), ('100', '100 km'))
+               
+    BEDROOM_CHOICES = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4+'))
 
     address = forms.CharField(label='Endereço', validators=[validate_address])
-    distance = forms.TypedChoiceField(label='Distância', choices=CHOICES, coerce=int, initial=DISTANCE)
+    distance = forms.TypedChoiceField(label='Distância', required = False, 
+                                    choices=CHOICES, coerce=int, initial=DISTANCE)
     
-    rent_price = forms.DecimalField(label='Preço Máximo', decimal_places=2, max_digits=10, initial=0,validators = [MinValueValidator(0.0)])
-    number_of_bedrooms = forms.IntegerField(label='Mínimo de quartos', initial=0, validators = [MinValueValidator(0)])
-    area = forms.IntegerField(label='Área Mínima', initial=0, validators = [MinValueValidator(0)])
+    rent_price = forms.DecimalField(label='Preço Máximo', decimal_places=2, max_digits=10, 
+                                    initial=0, required = False, validators = [MinValueValidator(0.0)])
+    number_of_bedrooms = forms.TypedChoiceField(label='Mínimo de quartos', required = False, 
+                                    choices=BEDROOM_CHOICES, coerce=int, initial=0)
+    area = forms.IntegerField(label='Área Mínima', initial=0, 
+                                required = False, validators = [MinValueValidator(0)])
+                                
 
 class UserForm(forms.ModelForm):
     class Meta:

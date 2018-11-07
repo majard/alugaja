@@ -1,13 +1,11 @@
-.sidebar-nav {
-    margin-top: 20px;
+.navbar {
+    margin: 0;
     padding: 0;
-    list-style: none;
 }
 
 .house-container{
-    padding: 20px;
     display: inline-block;    
-    background-color: rgb(42, 42, 42);
+    background-color: rgb(50, 50, 50);
     margin: 1%;
 }
 
@@ -43,9 +41,15 @@ body{
 }
 
 .filter{
-    display: none;
+    display: none;    
+    background-color: rgb(50, 50, 50);
+    position: relative;
+    z-index:1;
 }
 
+.filter div {
+    display: inline-block;
+}
 .search-button{
     display: inline-block;
     height: 32px;
@@ -57,6 +61,44 @@ body{
     display: block;
 }
 
+#results {
+    position: absolute;
+    top: 160px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#houses{
+    width: 68%;
+    height: 100%;
+    display: inline-block;
+    overflow-y: scroll;
+}
+
+#map {
+    width: 30%;
+    height: 100%;
+    display: inline-block;
+}
+
+.detail-image {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#house-details {
+    width: 69%;
+    display: inline-block;
+}
+
+#details-wrapper {    
+    position: absolute;
+    top: 50px;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+}
 
 @media screen and (max-width: 640px){        
     .house-container{
@@ -65,8 +107,6 @@ body{
     
     .search-form{
         font-size: 12px;
-        margin-bottom: 22px;
-        margin-top: 22px;
     }
     
     #id_address{
@@ -81,8 +121,6 @@ body{
 
     .search-form{
         font-size: 16px;
-        margin-bottom: 28px;
-        margin-top: 28px;
     }
     
     #id_address{
@@ -97,8 +135,6 @@ body{
     
     .search-form{
         font-size: 18px;
-        margin-bottom: 32px;
-        margin-top: 32px;
     }
     
     #id_address{
