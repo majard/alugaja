@@ -1,21 +1,44 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <img width=1080px height=720px 
-  src="{% if object.image %} {{ object.image.url }} {% else %}  {% endif %}" >
-  
-  <h1>Endereço: {{ house.address }}</h1>
+  <div id="details-wrapper">
+    <div id="house-details">
+          
+      <img class="detail-image"
+      src="{% if object.image %} {{ object.image.url }} {% else %}  {% endif %}" >
+      <p>Endereço: {{ house.address }}</p>
 
-  <p><strong>Locador:</strong> <a href="{{house.owner.profile.get_absolute_url}}">{{ house.owner }}</a></p> 
-  <p><strong>Contato:</strong>{{ house.owner.profile.contact }}</p> 
+      <p><strong>Locador:</strong> <a href="{{house.owner.profile.get_absolute_url}}">{{ house.owner }}</a></p> 
+      <p><strong>Contato:</strong>{{ house.owner.profile.contact }}</p> 
 
-  <p><strong>Cep:</strong> {{ house.zip_code }}</p>  
-  
-  <p> <b>Aluguel:</b> {{house.rent_price}}</p>
-  <p> <b>Area:</b> {{house.area}}</p>
-  <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
+      <p><strong>Cep:</strong> {{ house.zip_code }}</p>  
+      
+      <p> <b>Aluguel:</b> {{house.rent_price}}</p>
+      <p> <b>Area:</b> {{house.area}}</p>
+      <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
 
-  {% if user.id == house.owner.id %}
-  <a href="{{ house.get_update_url }}"> Edite os dados aqui. </a>
-  {% endif %}
+      {% if user.id == house.owner.id %}
+      <a href="{{ house.get_update_url }}"> Edite os dados aqui. </a>
+      {% endif %}
+    </div>
+    <div id="map"></div>
+  </div>
+<script type="text/javascript">
+
+  $(window).load(function(){     
+     LATITUDE = {{house.location.y}}
+     LONGITUDE = {{house.location.x}}
+     var map;
+     map = new google.maps.Map(document.getElementById('map'), {
+     center: {lat: LATITUDE, lng: LONGITUDE},
+     zoom: 12
+     });
+     var pos = {lat: LATITUDE, lng: LONGITUDE};
+     var marker = new google.maps.Marker({
+         position: pos,
+         map: map, 
+         title: "{{house}}",
+       });
+  });
+</script>
 {% endblock %}

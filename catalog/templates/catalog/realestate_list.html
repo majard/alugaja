@@ -39,29 +39,57 @@
   </div>
 </form>
 
+<div id="results">
 {% if queryset %}
-<table>
-  {% for house in queryset %} 
-  {% distance_to house as house_distance %} 
+    <div id="houses">
+    {% for house in queryset %} 
+    {% distance_to house as house_distance %} 
+      {{house.location.latitude}}
+      {{house.location.longitude}}
+      <div class="house-container">
+        <a href="{{ house.get_absolute_url }}">
+          <img class="house-image" src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}">
+          <div class="address-block">{{ house }}</div>
+        </a>
+        <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
+        <p> <b>Aluguel:</b> {{house.rent_price}}</p>
+        <p> <b>Area:</b> {{house.area}}</p>
+        <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
 
-    <div class="house-container">
-      <a href="{{ house.get_absolute_url }}">
-        <img class="house-image" src="{% if house.image %} {{ house.image.url }} {% else %}  {% endif %}">
-        <div class="address-block">{{ house }}</div>
-      </a>
-      <a href="{{ house.owner.profile.get_absolute_url }}">({{house.owner}})</a>
-      <p> <b>Aluguel:</b> {{house.rent_price}}</p>
-      <p> <b>Area:</b> {{house.area}}</p>
-      <p> <b>Quartos:</b> {{house.number_of_bedrooms}}</p>
-
-      <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
+        <p id='distance'> Distância: {{house_distance|floatformat:1 }} km </p>
+      </div>
+    {% endfor %}
     </div>
+  <div id="map"></div>
 
-  {% endfor %}
-
-</table>
-
-  {% else %}  
+{% else %}  
     <p>Não existem casas cadastradas com essas características.</p>
-  {% endif %} 
+{% endif %} 
+
+</div>
+
+<script type="text/javascript">
+
+   $(window).load(function(){     
+      LATITUDE = {{location.latitude}}
+      LONGITUDE = {{location.longitude}}
+      var map;
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: LATITUDE, lng: LONGITUDE},
+      zoom: 8
+      });
+      {% for house in queryset %}
+      var pos = {lat: {{house.location.y}}, lng: {{house.location.x}}};
+      var marker = new google.maps.Marker({
+          position: pos,
+          map: map, 
+          title: "{{house}}",
+          url: "{{ house.get_absolute_url }}",
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          window.location.href = this.url;
+        });
+      {% endfor %}
+   });
+</script>
 {% endblock %}
