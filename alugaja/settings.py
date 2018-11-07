@@ -148,3 +148,5 @@ GEOS_LIBRARY_PATH = os.getenv('GEOS_LIBRARY_PATH')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
