@@ -25,16 +25,24 @@ class SearchNearbyForm(forms.Form):
                
     BEDROOM_CHOICES = (('1', '1'), ('2', '2'), ('3', '3'), ('4', '4+'))
 
+    ORDERING_CHOICES = (('Distance', 'Distância'), ('rent_price', 'Preço'), 
+                        ('area', 'Área'), ('number_of_bedrooms', 'Quartos'))
+
     address = forms.CharField(label='Endereço', validators=[validate_address])
     distance = forms.TypedChoiceField(label='Distância', required = False, 
                                     choices=CHOICES, coerce=int, initial=DISTANCE)
     
     rent_price = forms.DecimalField(label='Preço Máximo', decimal_places=2, max_digits=10, 
                                     initial=0, required = False, validators = [MinValueValidator(0.0)])
+
     number_of_bedrooms = forms.TypedChoiceField(label='Mínimo de quartos', required = False, 
                                     choices=BEDROOM_CHOICES, coerce=int, initial=0)
+
     area = forms.IntegerField(label='Área Mínima', initial=0, 
                                 required = False, validators = [MinValueValidator(0)])
+
+    order_by = forms.TypedChoiceField(label='Ordenar por', required = False, 
+                                    choices=ORDERING_CHOICES, initial=0)
                                 
 
 class UserForm(forms.ModelForm):

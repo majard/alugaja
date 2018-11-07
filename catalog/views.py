@@ -17,6 +17,7 @@ from geopy.geocoders import Nominatim
 from geopy import geocoders
 from django.contrib.gis.geos import GEOSGeometry, Point
 from django.contrib.gis.measure import D  # D for distance
+from django.contrib.gis.db.models.functions import Distance
 
 from alugaja.settings import DEFAULT_ADDRESS, DISTANCE, LATITUDE, LONGITUDE
 
@@ -55,26 +56,28 @@ def view_houses(request):
             # Else process the data in form.cleaned_data as required             
             distance = form.cleaned_data['distance']
             location = geolocator.geocode(form.cleaned_data['address'])
-            
-            number_of_bedrooms = form.cleaned_data['number_of_bedrooms']            
-            area = form.cleaned_data['area']
-            rent_price = form.cleaned_data['rent_price']     
-    
-            queryset = queryset.filter(location__distance_lte=(
-                Point(location.longitude, location.latitude), 
-                D(km=distance)))
+            location_point = Point(location.longitude, location.latitude)
+            queryset = queryset.filter(location__distance_lte=(location_point, 
+                    D(km=distance))).annotate(distance=Distance("location", location_point))
 
             if 'number_of_bedrooms' in form.changed_data:
+                number_of_bedrooms = form.cleaned_data['number_of_bedrooms']  
                 queryset = queryset.filter(number_of_bedrooms__gte=number_of_bedrooms)
-                print("bed")
 
             if 'area' in form.changed_data:
+                area = form.cleaned_data['area']
                 queryset = queryset.filter(area__gte=area)        
-                print("area")
 
             if 'rent_price' in form.changed_data:
+                rent_price = form.cleaned_data['rent_price']     
                 queryset = queryset.filter(rent_price__lte=rent_price)        
-                print("rent_price")
+
+            if 'order_by' in form.changed_data:
+                order_by = form.cleaned_data['order_by'] 
+                if order_by == "Distance":
+                    queryset = queryset.order_by('distance')   
+                else:
+                    queryset = queryset.order_by(order_by)        
         
     return render(request, 'catalog/realestate_list.html', {'form': form, 'queryset': queryset, 'location': location})
  
