@@ -135,8 +135,9 @@ def update_house(request, id):
 
         # Check if the form is valid:
         if form.is_valid():
-
-            house = form.save()
+            
+            house = form.save(commit=False)
+            house.publish()
 
             # redirect to a new URL:
             return HttpResponseRedirect(house.get_absolute_url())

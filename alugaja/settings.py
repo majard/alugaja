@@ -143,8 +143,8 @@ DISTANCE = 100
 LATITUDE = -22.912194
 LONGITUDE = -43.249910 
 AWS_S3_REGION_NAME  = "sa-east-1"
-AWS_ACCESS_KEY_ID = "AKIAIW2FTQWOWEVC2RZA"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = 'alugaja'
 # Tell django-storages the domain to use to refer to static files.
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
